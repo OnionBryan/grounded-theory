@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grounded Theory Coding Practices & Initial Coding — Charmaz (2014) Ch. 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;600&family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;--bg4:#222230;--fg:#e8e6f0;--fg2:#9e9cb0;--fg3:#6b6980;--accent:#c084fc;--accent2:#7c3aed;--accent3:#a855f7;--ember:#f97316;--teal:#2dd4bf;--rose:#fb7185;--sky:#38bdf8;--border:#2a2a3a}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--fg);line-height:1.75;overflow-x:hidden}
+::selection{background:var(--accent2);color:white}
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.35;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")}
+h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
+nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:.75rem 1rem;display:flex;gap:.35rem;justify-content:center;flex-wrap:wrap}
+.nav-btn{background:transparent;border:1px solid transparent;color:var(--fg3);font-family:'Outfit',sans-serif;font-weight:500;padding:.35rem .75rem;cursor:pointer;border-radius:99px;font-size:.8rem;transition:all .25s;letter-spacing:.02em}
+.nav-btn:hover{color:var(--fg);border-color:var(--border)}
+.nav-btn.active{background:var(--accent2);color:white;border-color:var(--accent2)}
+.hero{position:relative;padding:5rem 2rem 4.5rem;text-align:center;overflow:hidden;background:linear-gradient(180deg,#0f0a1a 0%,var(--bg) 100%)}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(124,58,237,0.15),transparent);pointer-events:none}
+.hero-tag{display:inline-block;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(192,132,252,0.3);padding:.3rem .9rem;border-radius:99px;margin-bottom:1.75rem;font-weight:500}
+.hero h1{font-size:clamp(2rem,4.5vw,3.5rem);line-height:1.15;max-width:850px;margin:0 auto 1.25rem;background:linear-gradient(135deg,#fff 0%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero .subtitle{font-size:1.05rem;color:var(--fg2);max-width:650px;margin:0 auto 1.5rem;font-weight:300;font-style:italic}
+.hero .cite{font-size:.78rem;color:var(--fg3)}
+.container{max-width:1100px;margin:0 auto;padding:0 2rem}
+section{padding:4.5rem 0}section+section{border-top:1px solid var(--border)}
+.section-label{display:inline-flex;align-items:center;gap:.5rem;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem;font-weight:600}
+.section-label .dot{width:6px;height:6px;background:var(--accent);border-radius:50%}
+section h2{font-size:clamp(1.5rem,3.2vw,2.3rem);margin-bottom:1rem;line-height:1.2}
+section h2 span{color:var(--accent)}
+.prose{max-width:720px;color:var(--fg2);font-size:1rem;line-height:1.85;font-weight:300}.prose+.prose{margin-top:1.15rem}.prose strong{color:var(--fg);font-weight:500}
+.callout{background:var(--bg3);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:1.25rem 1.75rem;margin:1.75rem 0;font-size:.92rem;color:var(--fg2)}
+.callout em{color:var(--accent);font-style:normal;font-weight:500}
+.callout.ember{border-color:var(--ember)}.callout.ember em{color:var(--ember)}
+.callout.teal{border-color:var(--teal)}.callout.teal em{color:var(--teal)}
+.callout.rose{border-color:var(--rose)}.callout.rose em{color:var(--rose)}
+.callout.sky{border-color:var(--sky)}.callout.sky em{color:var(--sky)}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.25rem;margin:2rem 0}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.75rem;transition:border-color .3s,transform .3s}
+.card:hover{border-color:var(--accent2);transform:translateY(-2px)}
+.card h3{font-size:1.05rem;margin-bottom:.4rem;color:var(--fg)}.card p{font-size:.88rem;color:var(--fg2);font-weight:300}
+.bridge-wrap{display:flex;align-items:center;justify-content:center;gap:0;margin:2.5rem 0;flex-wrap:wrap}
+.bridge-node{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.75rem;text-align:center;min-width:130px}
+.bridge-node h4{font-size:.9rem;color:var(--fg)}.bridge-node p{font-size:.72rem;color:var(--fg3);margin-top:.2rem}
+.bridge-arrow{color:var(--accent);font-size:1.4rem;padding:0 .4rem;flex-shrink:0}
+.bridge-node.center{background:linear-gradient(135deg,var(--accent2),#9333ea);border-color:var(--accent)}.bridge-node.center h4{color:white}.bridge-node.center p{color:rgba(255,255,255,0.7)}
+.console{background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:2rem 0}
+.console-bar{background:var(--bg3);padding:.65rem 1.1rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:.5rem}
+.console-bar>span{font-size:.78rem;color:var(--fg3);font-family:'JetBrains Mono',monospace}
+.console-tabs{display:flex;gap:.3rem;flex-wrap:wrap}
+.tab-btn{background:var(--bg);border:1px solid var(--border);color:var(--fg3);padding:.3rem .75rem;border-radius:6px;cursor:pointer;font-size:.75rem;font-family:'Outfit',sans-serif;font-weight:500;transition:all .2s}
+.tab-btn:hover{color:var(--fg);border-color:var(--fg3)}.tab-btn.active{background:var(--accent2);color:white;border-color:var(--accent2)}
+.console-body{display:grid;grid-template-columns:1fr 1fr;min-height:400px}
+@media(max-width:700px){.console-body{grid-template-columns:1fr}.data-col{border-bottom:1px solid var(--border)}}
+.data-col{border-right:1px solid var(--border);overflow-y:auto;max-height:480px}.code-col{overflow-y:auto;max-height:480px;background:var(--bg)}
+.data-row{padding:.65rem 1.1rem;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:.85rem;color:var(--fg2);transition:all .2s;line-height:1.55}
+.data-row:hover{background:rgba(124,58,237,0.06)}.data-row.active{background:rgba(124,58,237,0.12);color:var(--fg)}
+.code-row{padding:.65rem 1.1rem;min-height:48px;display:flex;align-items:center;gap:.6rem;border-bottom:1px solid rgba(255,255,255,0.03);opacity:0;transform:translateX(-8px);transition:all .35s}
+.code-row.visible{opacity:1;transform:translateX(0)}
+.code-label{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);font-weight:400}
+.code-tag{font-size:.62rem;color:var(--fg3);background:var(--bg2);padding:.12rem .45rem;border-radius:4px;white-space:nowrap;border:1px solid var(--border)}
+.game-wrap{background:linear-gradient(135deg,var(--bg3) 0%,rgba(124,58,237,0.08) 100%);border:1px solid var(--border);border-radius:14px;padding:2.25rem;text-align:center;margin:2rem 0}
+.game-wrap h3{font-size:1.15rem;margin-bottom:.4rem}.game-wrap .sub{color:var(--fg3);font-size:.88rem;margin-bottom:1.75rem}
+.word-display{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:1.75rem;max-width:400px;margin:0 auto 1.25rem}
+.word-display .static-word{font-family:'DM Serif Display',serif;font-size:1.85rem;color:var(--fg);margin-bottom:.2rem}
+.word-display .hint{font-size:.75rem;color:var(--fg3)}
+.gerund-input{background:var(--bg2);border:1px solid var(--border);color:var(--fg);padding:.6rem .9rem;border-radius:8px;width:80%;max-width:280px;font-size:.95rem;text-align:center;font-family:'Outfit',sans-serif;outline:none}
+.gerund-input:focus{border-color:var(--accent)}
+.check-btn{background:var(--accent2);color:white;border:none;padding:.55rem 1.25rem;border-radius:8px;cursor:pointer;font-weight:600;font-size:.85rem;margin-top:.6rem;font-family:'Outfit',sans-serif}
+.game-feedback{height:1.4rem;margin-top:.6rem;font-size:.85rem;font-weight:500}
+.game-score{margin-top:.8rem;font-size:.8rem;color:var(--fg3);display:flex;justify-content:center;gap:1.25rem;align-items:center}
+.reset-btn{background:transparent;border:1px solid var(--fg3);color:var(--fg3);padding:.2rem .6rem;border-radius:6px;cursor:pointer;font-size:.75rem;font-family:'Outfit',sans-serif}
+.word-display.shake{animation:shake .45s cubic-bezier(.36,.07,.19,.97) both}
+.word-display.success{border-color:var(--teal);background:rgba(45,212,191,0.06)}.word-display.success .static-word{color:var(--teal)}
+@keyframes shake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(3px)}30%,50%,70%{transform:translateX(-5px)}40%,60%{transform:translateX(5px)}}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin:1.75rem 0}
+@media(max-width:600px){.compare-grid{grid-template-columns:1fr}}
+.compare-panel{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
+.compare-panel h4{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:var(--fg3);margin-bottom:.75rem}
+.compare-item{padding:.4rem 0;border-bottom:1px dashed rgba(255,255,255,0.06);font-size:.88rem;color:var(--fg2);cursor:pointer;transition:color .2s}
+.compare-item:hover,.compare-item.lit{color:var(--accent)}.compare-item:last-child{border-bottom:none}
+.compare-insight{background:var(--bg3);border-radius:10px;padding:1.1rem;margin-top:1.25rem;font-size:.88rem;color:var(--fg2);min-height:70px}
+.phase-line{display:flex;gap:0;margin:2rem 0;flex-wrap:wrap}
+.phase{flex:1;min-width:180px;padding:1.25rem;border:1px solid var(--border);position:relative;background:var(--bg2)}
+.phase:first-child{border-radius:12px 0 0 12px}.phase:last-child{border-radius:0 12px 12px 0}
+.phase-num{font-size:.62rem;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);margin-bottom:.4rem;font-weight:600}
+.phase h4{font-size:.95rem;margin-bottom:.3rem}.phase p{font-size:.8rem;color:var(--fg3);font-weight:300}
+.phase::after{content:'';position:absolute;right:-1px;top:50%;transform:translateY(-50%);width:0;height:0;border:7px solid transparent;border-left:7px solid var(--border);z-index:1}.phase:last-child::after{display:none}
+.vivo-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1.75rem 0}
+.vivo-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.15rem;cursor:pointer;transition:all .3s}
+.vivo-card:hover{border-color:var(--ember)}.vivo-card.open{border-color:var(--ember)}
+.vivo-card .term{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--ember);margin-bottom:.2rem}
+.vivo-card .type{font-size:.67rem;text-transform:uppercase;letter-spacing:.1em;color:var(--fg3);margin-bottom:.4rem}
+.vivo-card .desc{font-size:.83rem;color:var(--fg2);font-weight:300;margin-top:.4rem;display:none}.vivo-card.open .desc{display:block}
+.side-compare{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:2rem 0;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+@media(max-width:600px){.side-compare{grid-template-columns:1fr}}
+.side-col{padding:1.5rem}.side-col:first-child{border-right:1px solid var(--border);background:var(--bg2)}.side-col:last-child{background:var(--bg)}
+.side-col h4{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:.75rem;display:flex;align-items:center;gap:.4rem}
+.side-col h4 .badge{padding:.15rem .5rem;border-radius:4px;font-size:.65rem;font-weight:600}
+.side-col .side-item{padding:.5rem 0;border-bottom:1px dashed rgba(255,255,255,0.05);font-size:.85rem;color:var(--fg2);font-weight:300}.side-col .side-item:last-child{border-bottom:none}
+.problem-item{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.25rem 1.75rem;margin-bottom:.75rem;cursor:pointer;transition:all .3s}
+.problem-item:hover{border-color:var(--rose)}
+.problem-item h4{font-size:.95rem;color:var(--rose);display:flex;align-items:center;gap:.4rem}
+.problem-item h4::before{content:'';width:7px;height:7px;background:var(--rose);border-radius:50%;flex-shrink:0}
+.problem-item p{font-size:.88rem;color:var(--fg2);font-weight:300;display:none}.problem-item.open p{display:block;margin-top:.4rem}
+footer{padding:2.5rem 2rem;text-align:center;border-top:1px solid var(--border);color:var(--fg3);font-size:.82rem}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+</style>
+</head>
+<body>
+<nav>
+<button class="nav-btn active" onclick="go('logic')">Logic of Coding</button>
+<button class="nav-btn" onclick="go('constructing')">Constructing Codes</button>
+<button class="nav-btn" onclick="go('initial')">Initial Coding</button>
+<button class="nav-btn" onclick="go('lab')">Coding Lab</button>
+<button class="nav-btn" onclick="go('gerunds')">Gerunds</button>
+<button class="nav-btn" onclick="go('comparative')">Comparative Methods</button>
+<button class="nav-btn" onclick="go('vivo')">In Vivo Codes</button>
+<button class="nav-btn" onclick="go('transform')">Data &rarr; Codes</button>
+<button class="nav-btn" onclick="go('problems')">Pitfalls</button>
+<button class="nav-btn" onclick="go('focused')">Focused &amp; Beyond</button>
+</nav>
+<header class="hero"><div class="container">
+<div class="hero-tag">Charmaz (2014) &middot; Chapter 5 &middot; 2nd Edition</div>
+<h1>The Logic of Grounded Theory Coding Practices and Initial Coding</h1>
+<p class="subtitle">"Coding is the pivotal link between collecting data and developing an emergent theory to explain these data."</p>
+<p class="cite">Charmaz, K. (2014). <em>Constructing Grounded Theory</em> (2nd ed.). Los Angeles: Sage. pp. 109&ndash;137.</p>
+</div></header>
+<main>
+<section id="logic"><div class="container">
+<div class="section-label"><span class="dot"></span>Foundation</div>
+<h2>The Logic of <span>Grounded Theory Coding</span></h2>
+<p class="prose">The first analytic turn in our grounded theory journey brings us to coding. Grounded theory coding requires us to stop and ask analytic questions of the data we have gathered. These questions not only further our understanding of studied life but also help us direct subsequent data-gathering toward the analytic issues we are defining. Coding consists of at least two phases: <strong>initial</strong> and <strong>focused coding</strong> (Ch. 6).</p>
+<p class="prose">Through coding, you <strong>define</strong> what is happening in the data and begin to grapple with what it means. The codes take form together as elements of a nascent theory that directs further data-gathering. By careful attending to coding, you begin weaving two major threads: generalizable theoretical statements that transcend specific times and places, and contextual analyses of actions and events.</p>
+<div class="callout">As Star (2007, p. 80) writes, <em>"a code sets up a relationship with your data, and with your respondents."</em> Coding means naming segments of data with a short name that simultaneously summarizes and accounts for each piece of data. Your codes show how you select, separate, and sort data and begin an analytic accounting of them.</div>
+<div class="bridge-wrap">
+<div class="bridge-node"><h4>Concrete Data</h4><p>Words, lines, incidents</p></div>
+<div class="bridge-arrow">&rarr;</div>
+<div class="bridge-node center"><h4>CODING</h4><p>Selecting &middot; Separating &middot; Sorting</p></div>
+<div class="bridge-arrow">&rarr;</div>
+<div class="bridge-node"><h4>Emergent Theory</h4><p>Categories &amp; relationships</p></div>
+</div>
+<div class="card-grid">
+<div class="card"><h3>Provisional</h3><p>Initial codes are temporary. You remain open to other analytic possibilities and may reword earlier codes to improve fit. Compelling codes capture the phenomenon and grab the reader&mdash;like changing &ldquo;hearing about illness&rdquo; to &ldquo;receiving second-hand news,&rdquo; which implies diminished status and emotional charge (p. 118).</p></div>
+<div class="card"><h3>Comparative</h3><p>Compare data with data, data with codes, and codes with codes. The &ldquo;constant comparative method&rdquo; (Glaser &amp; Strauss, 1967) establishes analytic distinctions at every level. It is the engine that drives discovery.</p></div>
+<div class="card"><h3>Grounded</h3><p>The logic of grounded theory differs from quantitative logic which applies preconceived categories. Grounded theorists <strong>create</strong> codes by defining what we see in the data. Codes emerge as you scrutinize your data and define meanings within it (p. 114).</p></div>
+</div>
+<h3 style="margin:2rem 0 .75rem;font-size:1.1rem">Two Main Phases</h3>
+<div class="phase-line">
+<div class="phase"><div class="phase-num">Phase 1</div><h4>Initial Coding</h4><p>Naming each word, line, or segment. Remain open to all theoretical directions. Mine early data for analytic ideas. (This chapter.)</p></div>
+<div class="phase"><div class="phase-num">Phase 2</div><h4>Focused Coding</h4><p>Use the most significant or frequent initial codes to sort, synthesize, integrate, and organize large amounts of data. (Chapter 6.)</p></div>
+</div>
+</div></section>
+
+<section id="constructing"><div class="container">
+<div class="section-label"><span class="dot"></span>New in 2nd Ed.</div>
+<h2><span>Constructing</span> Codes</h2>
+<p class="prose">We <strong>construct</strong> our codes because we are actively naming data&mdash;even when we believe our codes form a perfect fit with actions and events in the studied world. We may think our codes capture the empirical reality. Yet it is <strong>our</strong> view: we choose the words that constitute our codes (p. 115).</p>
+<div class="callout sky"><em>The coding process is interactive.</em> We interact with our participants and subsequently interact with them again many times over through studying their statements and observed actions. We must dig into our data to interpret participants&rsquo; tacit meanings. Close attention to coding helps us to do that.</div>
+<p class="prose">Language plays a crucial role. No researcher is neutral because language confers form and meaning on observed realities. Our codes arise from the languages, meanings, and perspectives through which we learn about the empirical world. Coding impels us to make our participants&rsquo; language <strong>problematic</strong>&mdash;and should inspire us to examine hidden assumptions in our own language as well (p. 115).</p>
+<div class="callout teal"><em>Entering an interactive analytic space.</em> As you conduct grounded theory coding, you enter an interactive space that pulls you deeper into the data. The subjective merges with what appears to be objective as you grapple with understanding this world. Your codes can shift, change, or transform your relationship with your data (p. 116).</div>
+<p class="prose">Star (2007, p. 84) notes that grounded theory codes are &ldquo;transitional objects.&rdquo; They crystallize what we learn while studying our data and connect fragments of data with the analytic abstraction that we accord to them. Grounded theory coding generates the bones of your analysis. Theoretical centrality and integration will assemble these bones into a working skeleton.</p>
+</div></section>
+
+<section id="initial"><div class="container">
+<div class="section-label"><span class="dot"></span>The First Step</div>
+<h2>Initial Coding: <span>Staying Open</span></h2>
+<p class="prose">When grounded theorists conduct initial coding, we remain open to exploring whatever theoretical possibilities we can discern. Through comparing data with data, we learn what participants view as problematic and begin to treat it analytically. During initial coding, we ask:</p>
+<div class="callout"><em>&ldquo;What is this data a study of?&rdquo;</em> (Glaser, 1978, p. 57)<br>What do the data suggest? Pronounce? Leave unsaid?<br>From whose point of view?<br>What theoretical category does this specific datum indicate?</div>
+<p class="prose">Initial coding should stick closely to the data. Try to see actions in each segment rather than applying pre-existing categories. Coding for actions reduces tendencies to make conceptual leaps and to adopt extant theories before doing the necessary analytic work (p. 116).</p>
+<h3 style="margin:2rem 0 .75rem;font-size:1.1rem">Three Scales of Initial Coding</h3>
+<div class="card-grid">
+<div class="card"><h3>Word-by-Word</h3><p>Particularly helpful with documents, Internet data, or ephemera. Forces you to attend to the structure and flow of words, and how both affect the sense you make of them (p. 124).</p></div>
+<div class="card"><h3>Line-by-Line</h3><p>The workhorse of initial coding. A <strong>heuristic device</strong> to bring the researcher into the data, interact with them, and study each fragment. Defines implicit meanings and actions, gives directions to explore, spurs comparisons, and suggests emergent links between processes (p. 124).</p></div>
+<div class="card"><h3>Incident-by-Incident</h3><p>Compare incident with incident, then incidents to your conceptualization. Works well with observational data. Making comparisons gives you clues to follow. Compare and code similar events, then define subtle patterns and significant processes (p. 128).</p></div>
+</div>
+<div class="callout ember"><em>A code for coding (p. 120):</em> Remain open. Stay close to the data. Keep your codes simple and precise. Construct short codes. Preserve actions. Compare data with data. Move quickly through the data.</div>
+</div></section>
+
+<section id="lab"><div class="container">
+<div class="section-label"><span class="dot"></span>Interactive</div>
+<h2>Coding Lab: <span>Two Cases</span></h2>
+<p class="prose"><strong>Bonnie Presley</strong> (Box 5.2, p. 119)&mdash;a 48-year-old woman with lupus navigating disclosure with her daughter Amy&mdash;carries over from the 1st edition. New to the 2nd edition is <strong>Teresa</strong> (Box 5.1, p. 110), a 19-year-old voice major who had surgery for anaplastic thyroid cancer and faced potential loss of her voice and valued self.</p>
+<p class="prose">Click each data fragment to reveal its code. Toggle between cases and between initial vs. focused modes.</p>
+<div class="console" id="codingConsole">
+<div class="console-bar"><span>coding-console</span>
+<div class="console-tabs">
+<button class="tab-btn active" data-case="bonnie" onclick="setCase('bonnie',this)">Bonnie (Box 5.2)</button>
+<button class="tab-btn" data-case="teresa" onclick="setCase('teresa',this)">Teresa (Box 5.1)</button>
+<span style="color:var(--fg3);padding:0 .3rem">|</span>
+<button class="tab-btn active" data-mode="initial" onclick="setMode('initial',this)">Initial</button>
+<button class="tab-btn" data-mode="focused" onclick="setMode('focused',this)">Focused</button>
+</div></div>
+<div class="console-body"><div class="data-col" id="dataCol"></div><div class="code-col" id="codeCol"></div></div>
+</div>
+<p style="text-align:center;font-size:.78rem;color:var(--fg3)">Click lines on the left to reveal codes. Initial codes preserve action; focused codes synthesize into categories.</p>
+</div></section>
+
+<section id="gerunds"><div class="container">
+<div class="section-label"><span class="dot"></span>Core Technique</div>
+<h2>Coding for Topics vs. <span>Coding with Gerunds</span></h2>
+<p class="prose">Glaser (1978) shows how coding with gerunds helps you detect processes and stick to the data. Think of the difference: <strong>describing</strong> versus description, <strong>stating</strong> versus statement, <strong>leading</strong> versus leader. We gain a strong sense of action and sequence with gerunds. The nouns turn these actions into topics (p. 120).</p>
+<p class="prose">Charmaz contrasts this directly in Boxes 5.3 and 5.4 (pp. 122&ndash;123). Box 5.3 shows <strong>topical/thematic coding</strong>&mdash;static labels. Box 5.4 recodes the <strong>same data</strong> with grounded theory gerund-based codes. The difference is striking.</p>
+<div class="side-compare">
+<div class="side-col"><h4><span class="badge" style="background:var(--rose);color:white">Avoid</span> Topical Coding (Box 5.3)</h4>
+<div class="side-item">Friends&rsquo; support</div><div class="side-item">Hospitalization</div><div class="side-item">Conflict with doctor</div><div class="side-item">Hospital transfer</div><div class="side-item">Loss of choice of doctor</div><div class="side-item">Physician control</div><div class="side-item">Threats</div><div class="side-item">Powerlessness</div><div class="side-item">Lack of physical care</div>
+</div>
+<div class="side-col"><h4><span class="badge" style="background:var(--teal);color:white">Use</span> GT Coding (Box 5.4)</h4>
+<div class="side-item">Receiving friends&rsquo; help in seeking care</div><div class="side-item">Requesting regimen reevaluation</div><div class="side-item">Getting a &lsquo;bad&rsquo; doctor; Taking action against MD</div><div class="side-item">Being sent away; Preferring a female MD</div><div class="side-item">Losing choice; dwindling control</div><div class="side-item">Asserting self; Attempting to bargain</div><div class="side-item">Being misjudged; Offering evidence; Being discounted</div><div class="side-item">&lsquo;Following&rsquo; orders; Receiving daily threats</div><div class="side-item">Being overpowered; Experiencing immediate loss of control</div>
+</div></div>
+<div class="callout teal"><em>The difference:</em> General qualitative coding identifies <strong>topics</strong> the researcher can write about. Line-by-line grounded theory coding goes deeper into the studied phenomenon and attempts to explicate it (p. 121).</div>
+<div class="game-wrap"><h3>The Gerundifier Challenge</h3><p class="sub">Turn the static noun into an active grounded theory code.</p>
+<div class="word-display" id="wordDisplay"><div class="static-word" id="staticWord">Repression</div><div class="hint" id="hintText">Static noun &rarr; convert to action (-ing)</div>
+<input type="text" class="gerund-input" id="gerundInput" placeholder="Type gerund here..." onkeydown="if(event.key==='Enter')checkGerund()"><br>
+<button class="check-btn" id="checkBtn" onclick="checkGerund()">Check</button><div class="game-feedback" id="gameFeedback"></div></div>
+<div class="game-score"><span id="scoreDisplay">0 / 8</span><button class="reset-btn" onclick="resetGame()">Reset</button></div></div>
+</div></section>
+
+<section id="comparative"><div class="container">
+<div class="section-label"><span class="dot"></span>Analytic Engine</div>
+<h2>Using <span>Comparative Methods</span></h2>
+<p class="prose">Whatever unit of data you begin coding, you use &ldquo;constant comparative methods&rdquo; (Glaser &amp; Strauss, 1967) to establish analytic distinctions at each level of analytic work. Compare data with data to find similarities and differences. Then compare incidents to your conceptualization of incidents coded earlier (p. 132).</p>
+<div class="compare-grid">
+<div class="compare-panel"><h4>Compare&hellip;</h4>
+<div class="compare-item" onclick="showInsight(0,this)">Data with data</div>
+<div class="compare-item" onclick="showInsight(1,this)">Data with codes</div>
+<div class="compare-item" onclick="showInsight(2,this)">Codes with codes</div>
+<div class="compare-item" onclick="showInsight(3,this)">Incidents across interviews</div>
+<div class="compare-item" onclick="showInsight(4,this)">Earlier vs. later data (same person)</div>
+</div>
+<div class="compare-panel"><h4>What this produces</h4><div class="compare-insight" id="insightBox">Click a comparison type to see what it yields analytically.</div></div>
+</div>
+<div class="callout rose"><em>Your observations matter.</em> If your codes define a different view than respondents hold, note that. Your ideas may rest on covert meanings that haven&rsquo;t entirely surfaced. Such intuitions form another set of ideas to check (p. 132).</div>
+<h3 style="margin:2rem 0 .75rem;font-size:1.05rem">The Ominous Moment (Box 5.7, New)</h3>
+<p class="prose">Charmaz compares two incidents of &ldquo;comprehending the ominous moment&rdquo;&mdash;Teresa learning she could lose her voice, and Gail&rsquo;s injury during gymnastics. Despite vastly different contexts, both share properties: perceiving rapid successive cues, realizing the meaning of a pivotal point of self, instantaneous awareness despite shock, shattering the self, and immediate understanding of consequences (p. 130).</p>
+</div></section>
+
+<section id="vivo"><div class="container">
+<div class="section-label"><span class="dot"></span>Participants&rsquo; Language</div>
+<h2><span>In Vivo</span> Codes</h2>
+<p class="prose">Grounded theorists refer to codes of participants&rsquo; special terms as <strong>in vivo codes</strong>. In the 2nd edition (p. 134), Charmaz identifies <strong>four kinds</strong> that prove useful&mdash;though many examples span or blend these categories. The 1st edition (2006) also highlighted borrowed metaphors and condensed experience as analytically productive forms:</p>
+<div class="vivo-cards">
+<div class="vivo-card" onclick="toggleVivo(this)"><div class="term">&ldquo;Breaking the ice&rdquo;</div><div class="type">1. Condensed Meanings</div><div class="desc">Terms everyone &ldquo;knows&rdquo; that flag condensed but significant meanings. Ziegahn &amp; Hinchman&rsquo;s (1999) codes&mdash;&ldquo;breaking the ice,&rdquo; &ldquo;figuring out how to help,&rdquo; &ldquo;trying to understand&rdquo;&mdash;provided form and coherence to their study of college tutors. They use gerunds to portray problems the tutors wrestled with (p. 134).</div></div>
+<div class="vivo-card" onclick="toggleVivo(this)"><div class="term">&ldquo;Supernormal&rdquo;</div><div class="type">2. Innovative Terms</div><div class="desc">A participant&rsquo;s unique term capturing meanings or experience. A young doctor with severe diabetes described pursuing &ldquo;supernormal&rdquo; identity goals&mdash;not merely managing his condition but excelling beyond peers. Once grasped, Charmaz saw this process in other participants&rsquo; actions and stated intentions (p. 135).</div></div>
+<div class="vivo-card" onclick="toggleVivo(this)"><div class="term">&ldquo;Black Knight&rdquo;</div><div class="type">3. Insider Shorthand</div><div class="desc">Terms reflecting a particular group&rsquo;s perspective. Morrill&rsquo;s (1995) corporate executives used &ldquo;black knight,&rdquo; &ldquo;flying low,&rdquo; and &ldquo;vaporizing&rdquo; with specific in-house meanings evoking metaphors of combat and violation (p. 135).</div></div>
+<div class="vivo-card" onclick="toggleVivo(this)"><div class="term">&ldquo;The &lsquo;buck&rsquo; stops with me&rdquo;</div><div class="type">4. Crystallized Actions/Concerns</div><div class="desc">Statements that crystallize participants&rsquo; actions or concerns. New to 2nd ed. Richardson (2010) used this in vivo code as his article title and wove it into his analysis of Irish men&rsquo;s health policy, linking men&rsquo;s experience with national policy tensions (p. 134).</div></div>
+<div class="vivo-card" onclick="toggleVivo(this)"><div class="term">&ldquo;Hitting bottom&rdquo;</div><div class="type">Condensed Meaning</div><div class="desc">General terms everyone &ldquo;knows&rdquo; that flag condensed but significant meanings. The term &ldquo;battered woman,&rdquo; for instance, was shown by Loseke (1992) to carry specific, exclusionary assumptions by claims-makers about who qualifies for services&mdash;revealing how language shapes policy.</div></div>
+<div class="vivo-card" onclick="toggleVivo(this)"><div class="term">&ldquo;Making a comeback&rdquo;</div><div class="type">Borrowed Metaphor</div><div class="desc">By borrowing a term from once-successful celebrities, a participant defined his stance toward chronic illness. The term simultaneously reveals identity goals, social context, and the performative nature of illness management&mdash;reaching far beyond individual psychology (p. 135).</div></div>
+<div class="vivo-card" onclick="toggleVivo(this)"><div class="term">&ldquo;Good days / Bad days&rdquo;</div><div class="type">Condensed Experience</div><div class="desc">Many chronically ill participants used these phrases. Charmaz sought the condensed meanings and actions these terms covered&mdash;discovering how time structures experience when illness is unpredictable. &ldquo;Taking one day at a time&rdquo; similarly revealed shared orientations toward temporality (p. 135).</div></div>
+</div>
+<div class="callout ember"><em>Caution:</em> In vivo codes may be catchy, but they do not stand on their own. Like any other code, they must be subjected to comparative and analytic treatment and integrated into the theory (p. 134).</div>
+</div></section>
+
+<section id="transform"><div class="container">
+<div class="section-label"><span class="dot"></span>New Section</div>
+<h2>Transforming <span>Data into Codes</span></h2>
+<p class="prose">Coding relies on having solid data. How and what you record affects what you have to code. Charmaz emphasizes that coding full interview transcriptions gives you ideas and understandings you otherwise miss (p. 136).</p>
+<div class="card-grid" style="grid-template-columns:1fr 1fr">
+<div class="card" style="border-top:3px solid var(--accent)"><h3>Full Transcription</h3><p>Coding full transcriptions brings you to a deeper level of understanding. Rich data from first reading and coding need not be the final one&mdash;return and recode old data as new ideas spark (p. 136).</p></div>
+<div class="card" style="border-top:3px solid var(--ember)"><h3>From Notes</h3><p>Coding from notes might give a wider view, but can lead to going around rather than into the phenomenon. An overriding emphasis on plausibility risks constructing superficial analyses (p. 136).</p></div>
+</div>
+<div class="callout"><em>Concluding thought (p. 137):</em> Grounded theory coding is part work but also part play. We play with the data. We become involved and learn from them. Theoretical playfulness allows us to try out ideas and see where they may lead. Initial coding is the first part of the adventure that enables you to make the leap from concrete events to theoretical insight.</div>
+</div></section>
+
+<section id="problems"><div class="container">
+<div class="section-label"><span class="dot"></span>Watch Out</div>
+<h2>Reducing <span>Problems</span> in Coding</h2>
+<p class="prose">Researchers are enjoined to avoid forcing data into preconceived codes and categories. These pitfalls are common and often invisible.</p>
+<div id="problemList">
+<div class="problem-item" onclick="toggleProblem(this)"><h4>Forcing Extant Theories</h4><p>Students adopt ideas like &ldquo;risk,&rdquo; &ldquo;habitus,&rdquo; &ldquo;discourses of power&rdquo; to <strong>apply</strong> rather than interrogate. &ldquo;I&rsquo;m going to use Marx&mdash;or Foucault&mdash;or Harding.&rdquo; Such applications preclude your ideas from emerging. The openness of initial coding should spark thinking and allow new ideas to emerge (p. 117).</p></div>
+<div class="problem-item" onclick="toggleProblem(this)"><h4>Coding People as Types</h4><p>Assigning types to people casts them with static labels. You make them one-dimensional although behavior may change as events change. Such coding freezes people in time and space and erases defining variation (p. 117).</p></div>
+<div class="problem-item" onclick="toggleProblem(this)"><h4>Accepting Views Uncritically</h4><p>Becoming so immersed you accept respondents&rsquo; worldviews without question. If you had already accepted the same assumptions, you risk reproducing them. Being critical means asking questions about your data&mdash;not being critical of participants (p. 127).</p></div>
+<div class="problem-item" onclick="toggleProblem(this)"><h4>Static Topical Coding</h4><p>Picking up general terms like &ldquo;experience&rdquo; or &ldquo;event&rdquo; tells you little about meaning or action. Qualify general terms. Make codes fit the data rather than forcing data to fit them. See Box 5.3 vs. 5.4 contrast above (p. 120).</p></div>
+<div class="problem-item" onclick="toggleProblem(this)"><h4>Conceptual Leaps</h4><p>Jumping from data to sweeping theoretical claims without the necessary analytic work. Coding with gerunds and for actions curbs this. Build step by step from the ground up (p. 117).</p></div>
+<div class="problem-item" onclick="toggleProblem(this)"><h4>Overreliance on Notes vs. Transcripts</h4><p>New emphasis in 2nd ed.: few grounded theorists advocate coding from notes rather than transcriptions. Gary Fine&rsquo;s (1993) experiment showed even trained ethnographers rapidly forgot details. Coding full transcriptions gives you ideas you otherwise miss (p. 136).</p></div>
+</div>
+</div></section>
+
+<section id="focused"><div class="container">
+<div class="section-label"><span class="dot"></span>Raising Abstraction</div>
+<h2>From Initial to <span>Focused, Axial &amp; Theoretical</span></h2>
+<p class="prose">After initial coding, you select the most significant or frequent codes to sift through large amounts of data. This is <strong>focused coding</strong>&mdash;selective and conceptual. It requires decisions about which initial codes make the most analytic sense to categorize your data incisively and completely.</p>
+<div class="callout teal"><em>Not entirely linear.</em> Some respondents or events will make explicit what was implicit in earlier statements. An &ldquo;Aha!&rdquo; moment may prompt you to study your earlier data afresh and return to explore topics that had been glossed over.</div>
+<div class="card-grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+<div class="card" style="border-top:3px solid var(--accent)"><h3>Focused Coding</h3><p>Select the most frequent or significant initial codes and test them against extensive data. Move across interviews and observations; compare people&rsquo;s experiences, actions, and interpretations. The codes condense data and provide an analytic handle. Example: initial codes like &ldquo;accusing daughter of not caring&rdquo; and &ldquo;explaining lack of disclosure&rdquo; might synthesize into the focused code <strong>&ldquo;Assessing potential losses and risks of disclosing.&rdquo;</strong></p></div>
+<div class="card" style="border-top:3px solid var(--ember)"><h3>Axial Coding</h3><p>Strauss &amp; Corbin&rsquo;s technique for relating categories to subcategories. Specifies properties, dimensions, conditions, actions/interactions, and consequences. Provides a frame: useful for those who prefer preset structure, but potentially limiting if applied rigidly. Charmaz cautions it can cast a &ldquo;technological overlay&rdquo; on the data.</p></div>
+<div class="card" style="border-top:3px solid var(--teal)"><h3>Theoretical Coding</h3><p>Conceptualizes how substantive codes relate to each other as hypotheses to be integrated into a theory. Glaser (1978) introduced 18 &ldquo;coding families&rdquo; (the Six Cs: Causes, Contexts, Contingencies, Consequences, Covariances, Conditions, plus families like &ldquo;degree,&rdquo; &ldquo;interactive,&rdquo; and &ldquo;identity-self&rdquo;). These codes weave the fractured story back together&mdash;but must earn their way into the theory.</p></div>
+</div>
+<h3 style="margin:2.5rem 0 1rem;font-size:1.15rem">Charmaz&rsquo;s Example: Forms of Telling</h3>
+<p class="prose">In analyzing Bonnie Presley and others&rsquo; interviews, Charmaz discovered that telling other people about having a chronic illness poses emotional and interactional dilemmas. She coded for a range between spontaneous statements and staged pronouncements, then linked forms of telling to the relative presence or absence of participants&rsquo; control. She found that the participant&rsquo;s subjective stake in telling exceeded what a researcher could plot along a simple continuum&mdash;subjectivity and objectivity meet when participants flaunt illness due to unresolved problems of self-acceptance.</p>
+<div class="phase-line" style="margin-top:1.5rem">
+<div class="phase" style="background:rgba(124,58,237,0.08)"><div class="phase-num" style="color:var(--accent)">Low Control</div><h4>Blurting</h4><p>Spontaneous, uncontrolled disclosure when shocked by diagnosis or first episode</p></div>
+<div class="phase" style="background:rgba(45,212,191,0.06)"><div class="phase-num" style="color:var(--teal)">Mixed</div><h4>Informing</h4><p>Matter-of-fact telling, as Bonnie did&mdash;maintaining emotional control but risking being misunderstood</p></div>
+<div class="phase" style="background:rgba(249,115,22,0.06)"><div class="phase-num" style="color:var(--ember)">High Control</div><h4>Staging</h4><p>Planned pronouncements with intended audience effects, strategic withholding, curating what others learn</p></div>
+</div>
+</div></section>
+
+</main>
+<footer><p>Based on Charmaz, K. (2014). <em>Constructing Grounded Theory</em> (2nd ed., Ch. 5, pp. 109&ndash;137). Los Angeles: Sage.<br>Created for educational purposes.</p></footer>
+
+<script>
+function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));event.target.classList.add('active')}
+const sections=document.querySelectorAll('section'),navBtns=document.querySelectorAll('.nav-btn');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){navBtns.forEach(b=>b.classList.remove('active'));const btn=[...navBtns].find(b=>b.getAttribute('onclick')?.includes(e.target.id));if(btn)btn.classList.add('active')}})},{threshold:0.12,rootMargin:'-80px 0px -55% 0px'});
+sections.forEach(s=>obs.observe(s));
+
+const bonnieData=[
+{text:"She found out from Linda that I was, had been in bed for days",initial:"Receiving second-hand news; Being left out",focused:"Managing Information"},
+{text:"and she called me up, 'You never tell me, and I have to find out from Linda,'",initial:"Accusing mother of repeated not telling; Being confronted",focused:"Receiving Censure"},
+{text:"and 'Why don't you tell me who you are and what's going on...'",initial:"Facing self and identity questions; Demanding self-disclosure",focused:"Defining Relationships"},
+{text:"Well, that Saturday the pain started right here and throughout the day it got worse and worse.",initial:"Experiencing escalating pain",focused:"Experiencing Crisis"},
+{text:"And she\u2014I kept thinking that, well, I can deal with this,",initial:"Expecting to manage pain",focused:"Attempting Control"},
+{text:"so I took some kind of a pain pill and nothing helped.",initial:"Inability to control pain",focused:"Losing Control"},
+{text:"Well, it got worse and worse so that every time I took a breath the pain was horrible,",initial:"Having excruciating pain; Rapid worsening",focused:"Experiencing Crisis"},
+{text:"so by seven, eight o'clock that night, I was scared because I knew if it got worse I wasn't going to be able to breathe.",initial:"Becoming frightened; Foreseeing breathing crisis",focused:"Experiencing Crisis"},
+{text:"So I called her and then I told her what was going on,",initial:"Breaking the news; Informing daughter of plan",focused:"Disclosing"},
+{text:"She says, 'Well, Mom I'll call you later or you call me.'",initial:"Leaving follow-up contact open-ended",focused:"Managing Information"},
+{text:"Well, I didn't call her; she didn't call me. That was Saturday night.",initial:"No follow-up; Ascertaining time between contacts",focused:"Experiencing Abandonment"},
+{text:"'This is why I don't tell you, because when I told you Saturday night, you never called, you didn't care'",initial:"Explaining lack of disclosure; Accusing daughter of not caring; Expressing hurt",focused:"Assessing Risks of Disclosing"},
+{text:"'Well, Mom, you sounded perfectly fine.'",initial:"Sounding like a 'normal' mom; Questioning daughter's expectations",focused:"Being Misread"},
+{text:"'I have to keep everything still and quiet in me in order to control, because if I went into emotional frenzy, I would not have been able to breathe.'",initial:"Explaining need for emotional control; Seeing life-threatening risk of losing control",focused:"Trading Emotional for Physical Control"},
+{text:"So she started really trying to understand... but when I called her, I guess I was just a normal mom.",initial:"Teaching that mode of telling does not reflect state of being; Sounding like a 'normal' mom",focused:"Redefining Understanding"}
+];
+const teresaData=[
+{text:"It was horrible. I remember the instant I woke up from the surgery.",initial:"Enduring recovery; Remembering first instant of consciousness",focused:"Experiencing Aftermath"},
+{text:"The surgery was supposed to take three hours... it ended up taking six, maybe seven hours,",initial:"Measuring surgery in hours; Finding unexpected spread of tumor",focused:"Discovering Severity"},
+{text:"because they didn't expect to find the spreading. I woke up... anesthesia has an interesting effect on people.",initial:"Explaining effects of anesthesia; Waking up wailing",focused:"Losing Composure"},
+{text:"I realize, first thing, that my voice is coming out much better than before surgery, so I thought, 'yeah, this is great!'",initial:"Hearing a better voice; Feeling jubilant about surgical results",focused:"Experiencing Relief"},
+{text:"The following weeks, I was in a lot of pain, primarily because of the nature of the surgery.",initial:"Being in pain; Being immobilized",focused:"Enduring Physical Consequences"},
+{text:"I was miserable, and more unfortunate, I had to stay with my parents.",initial:"Feeling miserable; Being forced to stay with parents; Wanting distance\u2014dad",focused:"Losing Independence"},
+{text:"And my condition didn't mean we didn't argue, which just complicated things with my voice.",initial:"Continuing conflict complicating voice; Externalizing inability to speak coherently",focused:"Compounding Losses"},
+{text:"Following the surgery, there was a notable inability to speak well for about a month, when my phonation was very definitively affected.",initial:"Experiencing altered speech; Defining certain impairment",focused:"Losing Voice"},
+{text:"Slowly, it started coming back but something had definitely changed. No one could tell what changed.",initial:"Receiving no definitive explanation; Info withheld",focused:"Confronting Uncertainty"},
+{text:"It's been theorized that the surgery was responsible for shifting some things around, so things were just going to be different.",initial:"Reciting possible loss; Defining permanent loss",focused:"Defining Permanent Loss"},
+{text:"That was difficult... healing physically and coming to terms with the fact that things would be so different.",initial:"Implying distress; Experiencing forced loss",focused:"Grieving"},
+{text:"I wasn't even myself anymore after that. My voice was gone, so I was gone, and I'd never been anything but my voice.",initial:"Voice and self merge; Losing valued self; Acknowledging suffering",focused:"Losing a Valued Self"}
+];
+
+let currentCase='bonnie',currentMode='initial';
+function setCase(c,btn){currentCase=c;document.querySelectorAll('.tab-btn[data-case]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderConsole()}
+function setMode(m,btn){currentMode=m;document.querySelectorAll('.tab-btn[data-mode]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderConsole()}
+function renderConsole(){
+const data=currentCase==='bonnie'?bonnieData:teresaData;
+const dc=document.getElementById('dataCol'),cc=document.getElementById('codeCol');dc.innerHTML='';cc.innerHTML='';
+data.forEach((item,i)=>{
+const dr=document.createElement('div');dr.className='data-row';dr.textContent=item.text;dr.onclick=()=>revealCode(i);dr.id='dr-'+i;dc.appendChild(dr);
+const cr=document.createElement('div');cr.className='code-row';cr.id='cr-'+i;
+const txt=currentMode==='initial'?item.initial:item.focused;const tag=currentMode==='initial'?'action/process':'category';
+cr.innerHTML='<span class="code-label">'+txt+'</span><span class="code-tag">'+tag+'</span>';cc.appendChild(cr)});}
+function revealCode(i){document.querySelectorAll('.data-row').forEach(r=>r.classList.remove('active'));document.querySelectorAll('.code-row').forEach(r=>r.classList.remove('visible'));document.getElementById('dr-'+i).classList.add('active');document.getElementById('cr-'+i).classList.add('visible');document.getElementById('cr-'+i).scrollIntoView({behavior:'smooth',block:'nearest'})}
+renderConsole();
+
+const words=[{noun:"Repression",gerund:"repressing"},{noun:"Legitimacy",gerund:"legitimizing"},{noun:"Betrayal",gerund:"betraying"},{noun:"Avoidance",gerund:"avoiding"},{noun:"Disclosure",gerund:"disclosing"},{noun:"Description",gerund:"describing"},{noun:"Statement",gerund:"stating"},{noun:"Leader",gerund:"leading"}];
+let wi=0,score=0;
+function updateGame(){const wd=document.getElementById('wordDisplay'),sw=document.getElementById('staticWord'),inp=document.getElementById('gerundInput'),fb=document.getElementById('gameFeedback'),cb=document.getElementById('checkBtn');wd.classList.remove('shake','success');inp.value='';inp.disabled=false;inp.style.display='';cb.style.display='';fb.textContent='';if(wi<words.length){sw.textContent=words[wi].noun;document.getElementById('hintText').textContent='Static noun \u2192 convert to action (-ing)'}else{sw.textContent='Complete!';document.getElementById('hintText').textContent='You preserved action in all codes.';inp.style.display='none';cb.style.display='none'}document.getElementById('scoreDisplay').textContent=score+' / '+words.length}
+function checkGerund(){const inp=document.getElementById('gerundInput'),wd=document.getElementById('wordDisplay'),fb=document.getElementById('gameFeedback');const v=inp.value.trim().toLowerCase(),c=words[wi].gerund.toLowerCase();if(v===c||v.includes(c)){score++;wd.classList.add('success');fb.textContent='Correct \u2014 action preserved.';fb.style.color='var(--teal)';inp.disabled=true;setTimeout(()=>{wi++;updateGame()},1000)}else{wd.classList.add('shake');fb.textContent='Not quite. What -ing word captures this action?';fb.style.color='var(--rose)';setTimeout(()=>wd.classList.remove('shake'),500)}}
+function resetGame(){wi=0;score=0;updateGame()}
+updateGame();
+
+const insights=["Comparing data with data reveals similarities and differences. Bonnie delayed disclosing; other single women with few family ties correspondingly curtailed sharing news. 'Avoiding disclosure,' 'delaying disclosure,' and 'controlling information' all emerged as salient codes (p. 120).","Comparing data with codes checks whether codes fit what participants say and do. Forces you to refine labels\u2014a code may capture several distinct processes, prompting you to split or relabel.","Comparing codes with codes shows which cluster together, which are most frequent, and which might synthesize into higher-level focused codes. This is where categories begin to crystallize.","Comparing incidents across interviews reveals patterns. Charmaz compared Teresa learning she could lose her voice with Gail's gymnastics injury (Box 5.7)\u2014shared properties of the 'ominous moment': rapid cues, pivotal self-realization, immediate understanding of consequences (p. 130).","Comparing earlier and later data from the same person reveals process. Teresa's codes build tension\u2014'experiencing altered speech,' 'receiving no explanation,' 'defining permanent loss' reveal processes in her experience of losing her voice (p. 112)."];
+function showInsight(i,el){document.querySelectorAll('.compare-item').forEach(c=>c.classList.remove('lit'));el.classList.add('lit');document.getElementById('insightBox').textContent=insights[i]}
+function toggleVivo(c){const o=c.classList.contains('open');document.querySelectorAll('.vivo-card').forEach(x=>x.classList.remove('open'));if(!o)c.classList.add('open')}
+function toggleProblem(p){const o=p.classList.contains('open');document.querySelectorAll('.problem-item').forEach(x=>x.classList.remove('open'));if(!o)p.classList.add('open')}
+</script>
+</body>
+</html>
